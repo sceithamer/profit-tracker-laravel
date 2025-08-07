@@ -8,6 +8,7 @@
   align-items: center;
   gap: var(--space-xl);
   flex-wrap: wrap;
+  margin: var(--space-xl) 0;
 }
 
 .pagination-info {

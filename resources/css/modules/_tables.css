@@ -40,10 +40,8 @@ th a:hover {
   color: var(--color-primary);
 }
 
-/* Table container for scrolling */
+/* Table container */
 .table-container {
-  max-height: 600px;
-  overflow-y: auto;
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
 }

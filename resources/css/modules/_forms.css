@@ -13,6 +13,11 @@
   margin-bottom: 0;
 }
 
+.form-row .form-group:not(:first-child),
+.form-row-3 .form-group:not(:first-child) {
+  margin-top: var(--space-lg);
+}
+
 .form-inline .form-group {
   flex: 1;
   margin-bottom: 0;

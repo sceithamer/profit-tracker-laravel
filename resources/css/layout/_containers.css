@@ -64,14 +64,14 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-xl);
-  align-items: start;
+  align-items: end;
 }
 
 .form-row-3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: var(--space-xl);
-  align-items: start;
+  align-items: end;
 }
 
 .form-inline {
