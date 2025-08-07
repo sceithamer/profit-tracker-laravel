@@ -7,10 +7,6 @@
 <div class="card form-card">
     <h1>⚡ Quick Sale Entry</h1>
 
-            <div class="highlight">
-                <strong>💡 Pro Tip:</strong> Log your sales as soon as they happen for accurate tracking!
-            </div>
-
             <form method="POST" action="{{ route('sales.store') }}">
                 @csrf
                 
@@ -116,8 +112,8 @@
                 </div>
 
             <div style="display: flex; gap: 10px; margin-top: 30px; justify-content: center;">
-                <button type="submit" class="button button--success">💰 Record Sale</button>
-                <a href="{{ route('dashboard') }}" class="button button--secondary">Cancel</a>
+                <x-button type="submit" variant="success">💰 Record Sale</x-button>
+                <x-button href="{{ route('dashboard') }}" variant="secondary">Cancel</x-button>
             </div>
         </form>
     </div>

@@ -20,8 +20,8 @@
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 30px; justify-content: center;">
-            <button type="submit" class="btn btn-success">Update Platform</button>
-            <a href="{{ route('platforms.index') }}" class="btn btn-secondary">Cancel</a>
+            <x-button type="submit" variant="success">Update Platform</x-button>
+            <x-button href="{{ route('platforms.index') }}" variant="secondary">Cancel</x-button>
         </div>
     </form>
 </div>

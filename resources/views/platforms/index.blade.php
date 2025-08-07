@@ -18,7 +18,7 @@
                     <div style="color: #ef4444; font-size: 12px; margin-top: 2px;">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-success">Add Platform</button>
+            <x-button type="submit" variant="success">Add Platform</x-button>
         </div>
     </form>
 </div>
@@ -40,13 +40,13 @@
                         <td><strong>{{ $platform->name }}</strong></td>
                         <td>{{ $platform->sales_count }} sales</td>
                         <td>
-                            <a href="{{ route('platforms.show', $platform) }}" class="btn btn-small">View</a>
-                            <a href="{{ route('platforms.edit', $platform) }}" class="btn btn-small">Edit</a>
+                            <x-button href="{{ route('platforms.show', $platform) }}" size="small">View</x-button>
+                            <x-button href="{{ route('platforms.edit', $platform) }}" size="small">Edit</x-button>
                             @if($platform->sales_count == 0)
                                 <form method="POST" action="{{ route('platforms.destroy', $platform) }}" style="display: inline;" onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-small btn-danger">Delete</button>
+                                    <x-button type="submit" variant="danger" size="small">Delete</x-button>
                                 </form>
                             @endif
                         </td>

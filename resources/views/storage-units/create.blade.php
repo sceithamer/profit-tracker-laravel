@@ -67,8 +67,8 @@
                 </div>
 
             <div style="display: flex; gap: 10px; margin-top: 30px;">
-                <button type="submit" class="button">Create Storage Unit</button>
-                <a href="{{ route('dashboard') }}" class="button button--secondary">Cancel</a>
+                <x-button type="submit" variant="success">Create Storage Unit</x-button>
+                <x-button href="{{ route('dashboard') }}" variant="secondary">Cancel</x-button>
             </div>
         </form>
     </div>

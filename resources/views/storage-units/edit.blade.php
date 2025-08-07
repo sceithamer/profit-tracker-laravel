@@ -68,8 +68,8 @@
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 30px; justify-content: center;">
-            <button type="submit" class="button button--success">Update Storage Unit</button>
-            <a href="{{ route('storage-units.show', $storageUnit) }}" class="button button--secondary">Cancel</a>
+            <x-button type="submit" variant="success">Update Storage Unit</x-button>
+            <x-button href="{{ route('storage-units.show', $storageUnit) }}" variant="secondary">Cancel</x-button>
         </div>
     </form>
 </div>

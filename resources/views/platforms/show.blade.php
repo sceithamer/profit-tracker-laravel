@@ -7,7 +7,7 @@
 <div class="header-actions">
     <h1>📱 {{ $platform->name }}</h1>
     <div style="margin-left: auto;">
-        <a href="{{ route('platforms.edit', $platform) }}" class="btn">Edit Platform</a>
+        <x-button href="{{ route('platforms.edit', $platform) }}">Edit Platform</x-button>
     </div>
 </div>
 
@@ -38,6 +38,6 @@
     'title' => "All Sales on {$platform->name}",
     'showPlatform' => false,
     'emptyMessage' => "No items have been sold on {$platform->name} yet.",
-    'emptyAction' => '<a href="' . route('sales.create') . '" class="btn btn-success">+ Record First Sale</a>'
+    'emptyAction' => '<x-button href="' . route('sales.create') . '" variant="success">+ Record First Sale</x-button>'
 ])
 @endsection

@@ -18,6 +18,12 @@
   margin-top: var(--space-lg);
 }
 
+/* Add spacing between form rows and standalone form groups */
+.form-row + .form-group,
+.form-row-3 + .form-group {
+  margin-top: var(--space-lg);
+}
+
 .form-inline .form-group {
   flex: 1;
   margin-bottom: 0;
@@ -75,6 +81,29 @@ select:focus {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
   border-color: var(--color-primary);
+}
+
+/* Hide number input spinners (up/down arrows) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Custom select dropdown styling */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
 }
 
 .form-row .form-group input,
