@@ -116,8 +116,8 @@
                 </div>
 
             <div style="display: flex; gap: 10px; margin-top: 30px; justify-content: center;">
-                <button type="submit" class="btn btn-success">💰 Record Sale</button>
-                <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="button button--success">💰 Record Sale</button>
+                <a href="{{ route('dashboard') }}" class="button button--secondary">Cancel</a>
             </div>
         </form>
     </div>
