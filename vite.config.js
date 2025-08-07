@@ -10,4 +10,10 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    server: {
+        watch: {
+            usePolling: true,
+            interval: 5000, // Check for changes every 5 seconds
+        },
+    },
 });
