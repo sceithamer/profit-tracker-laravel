@@ -7,6 +7,7 @@ use App\Models\Sale;
 use App\Models\StorageUnit;
 use App\Models\Platform;
 use App\Models\User;
+use App\Models\Category;
 
 class SaleController extends Controller
 {
@@ -23,7 +24,7 @@ class SaleController extends Controller
         
         // Validate sortable columns
         $sortableColumns = [
-            'sale_date', 'item_name', 'item_category', 'sale_price', 
+            'sale_date', 'item_name', 'category_id', 'sale_price', 
             'fees', 'shipping_cost', 'platform_id', 'user_id', 'storage_unit_id'
         ];
         
@@ -36,7 +37,7 @@ class SaleController extends Controller
             $sortDir = 'desc';
         }
         
-        $query = Sale::with(['storageUnit', 'user', 'platform']);
+        $query = Sale::with(['storageUnit', 'user', 'platform', 'category']);
         
         // Handle sorting by related models
         if ($sortBy === 'platform_id') {
@@ -66,8 +67,9 @@ class SaleController extends Controller
         $storageUnits = StorageUnit::where('status', 'active')->orderBy('name')->get();
         $platforms = Platform::orderBy('name')->get();
         $users = User::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
         
-        return view('sales.create', compact('storageUnits', 'platforms', 'users'));
+        return view('sales.create', compact('storageUnits', 'platforms', 'users', 'categories'));
     }
 
     public function store(Request $request)
@@ -77,7 +79,7 @@ class SaleController extends Controller
             'user_id' => 'required|exists:users,id',
             'platform_id' => 'required|exists:platforms,id',
             'item_name' => 'required|string|max:255',
-            'item_category' => 'nullable|string|max:255',
+            'category_id' => 'required|exists:categories,id',
             'sale_price' => 'required|numeric|min:0',
             'sale_date' => 'required|date',
             'fees' => 'nullable|numeric|min:0',
@@ -105,8 +107,9 @@ class SaleController extends Controller
         $storageUnits = StorageUnit::orderBy('name')->get();
         $platforms = Platform::orderBy('name')->get();
         $users = User::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
         
-        return view('sales.edit', compact('sale', 'storageUnits', 'platforms', 'users'));
+        return view('sales.edit', compact('sale', 'storageUnits', 'platforms', 'users', 'categories'));
     }
 
     public function update(Request $request, Sale $sale)
@@ -116,7 +119,7 @@ class SaleController extends Controller
             'user_id' => 'required|exists:users,id',
             'platform_id' => 'required|exists:platforms,id',
             'item_name' => 'required|string|max:255',
-            'item_category' => 'nullable|string|max:255',
+            'category_id' => 'required|exists:categories,id',
             'sale_price' => 'required|numeric|min:0',
             'sale_date' => 'required|date',
             'fees' => 'nullable|numeric|min:0',

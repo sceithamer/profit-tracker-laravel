@@ -66,6 +66,9 @@
                             <a href="{{ route('platforms.index') }}" class="dropdown-item" role="menuitem">
                                 <span aria-hidden="true">📱</span> Manage Platforms
                             </a>
+                            <a href="{{ route('categories.index') }}" class="dropdown-item" role="menuitem">
+                                <span aria-hidden="true">📂</span> Manage Categories
+                            </a>
                         </div>
                     </div>
                 </div>

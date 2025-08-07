@@ -155,11 +155,11 @@ Usage:
                             </a>
                         </th>
                         <th scope="col">
-                            <a href="{{ request()->fullUrlWithQuery(['sort' => 'item_category', 'direction' => $sortBy === 'item_category' && $sortDir === 'desc' ? 'asc' : 'desc']) }}" 
+                            <a href="{{ request()->fullUrlWithQuery(['sort' => 'category_id', 'direction' => $sortBy === 'category_id' && $sortDir === 'desc' ? 'asc' : 'desc']) }}" 
                                style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 5px;"
-                               aria-label="Sort by category {{ $sortBy === 'item_category' && $sortDir === 'desc' ? 'ascending' : 'descending' }}">
+                               aria-label="Sort by category {{ $sortBy === 'category_id' && $sortDir === 'desc' ? 'ascending' : 'descending' }}">
                                 Category
-                                @if($sortBy === 'item_category')
+                                @if($sortBy === 'category_id')
                                     <span aria-label="{{ $sortDir === 'desc' ? 'sorted descending' : 'sorted ascending' }}" 
                                           style="font-size: 12px;">{{ $sortDir === 'desc' ? '↓' : '↑' }}</span>
                                 @else
@@ -201,7 +201,7 @@ Usage:
                             <td>{{ $sale->platform->name }}</td>
                             @endif
                             <td>{{ $sale->user->name }}</td>
-                            <td>{{ $sale->item_category ?: '—' }}</td>
+                            <td>{{ $sale->category ? $sale->category->name : '—' }}</td>
                         </tr>
                     @endforeach
                 </tbody>

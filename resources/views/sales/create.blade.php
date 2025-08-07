@@ -87,9 +87,17 @@
 
                 <div class="form-row-3">
                     <div class="form-group">
-                        <label for="item_category">Category <span class="optional">(Optional)</span></label>
-                        <input type="text" id="item_category" name="item_category" value="{{ old('item_category') }}" placeholder="e.g., Electronics, Clothing">
-                        @error('item_category')
+                        <label for="category_id">Category *</label>
+                        <select id="category_id" name="category_id" required>
+                            <option value="">Choose a category...</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" 
+                                    {{ (old('category_id') == $category->id || (!old('category_id') && $category->name === 'Uncategorized')) ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
                             <div class="error">{{ $message }}</div>
                         @enderror
                     </div>
