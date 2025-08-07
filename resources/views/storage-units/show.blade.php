@@ -7,8 +7,8 @@
 <div class="header-actions">
     <h1>🏠 {{ $storageUnit->name }}</h1>
     <div style="margin-left: auto;">
-        <a href="{{ route('storage-units.edit', $storageUnit) }}" class="btn">Edit Unit</a>
-        <a href="{{ route('sales.create') }}?storage_unit={{ $storageUnit->id }}" class="btn btn-success">+ Add Sale</a>
+        <a href="{{ route('storage-units.edit', $storageUnit) }}" class="button">Edit Unit</a>
+        <a href="{{ route('sales.create') }}?storage_unit={{ $storageUnit->id }}" class="button button--success">+ Add Sale</a>
     </div>
 </div>
 
@@ -76,7 +76,7 @@
             'showStorageUnit' => false,
             'headingLevel' => 'h2',
             'emptyMessage' => 'Start selling items from this storage unit!',
-            'emptyAction' => '<a href="' . route('sales.create', ['storage_unit' => $storageUnit->id]) . '" class="btn btn-success">+ Record First Sale</a>'
+            'emptyAction' => '<a href="' . route('sales.create', ['storage_unit' => $storageUnit->id]) . '" class="button button--success">+ Record First Sale</a>'
         ])
 
         @if($storageUnit->expenses->count() > 0)

@@ -67,8 +67,8 @@
                 </div>
 
             <div style="display: flex; gap: 10px; margin-top: 30px;">
-                <button type="submit" class="btn">Create Storage Unit</button>
-                <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="button">Create Storage Unit</button>
+                <a href="{{ route('dashboard') }}" class="button button--secondary">Cancel</a>
             </div>
         </form>
     </div>

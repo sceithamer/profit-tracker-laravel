@@ -42,8 +42,8 @@
                             </span>
                         </td>
                         <td>
-                            <a href="{{ route('storage-units.show', $unit) }}" class="btn btn-small">View</a>
-                            <a href="{{ route('storage-units.edit', $unit) }}" class="btn btn-small">Edit</a>
+                            <a href="{{ route('storage-units.show', $unit) }}" class="button button--small">View</a>
+                            <a href="{{ route('storage-units.edit', $unit) }}" class="button button--small">Edit</a>
                         </td>
                     </tr>
                 @endforeach
@@ -53,7 +53,7 @@
         <div style="text-align: center; padding: 40px;">
             <h2>No Storage Units Yet</h2>
             <p>Create your first storage unit to start tracking profits!</p>
-            <a href="{{ route('storage-units.create') }}" class="btn btn-success">+ Create Storage Unit</a>
+            <a href="{{ route('storage-units.create') }}" class="button button--success">+ Create Storage Unit</a>
         </div>
     @endif
 </div>

@@ -18,7 +18,7 @@
     <meta name="twitter:description" content="@yield('meta_description', 'Track profit from storage unit auctions and reselling')">
     
     <title>@yield('title', 'Storage Units Profit Tracker')</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <!-- Skip Navigation Link for Screen Readers -->
@@ -34,13 +34,13 @@
                 </a>
                 
                 <div class="navbar-actions">
-                    <a href="{{ route('sales.create') }}" class="btn btn-success" aria-label="Quick Sale Entry - Add a new sale">
+                    <a href="{{ route('sales.create') }}" class="button button--success" aria-label="Quick Sale Entry - Add a new sale">
                         <span aria-hidden="true">⚡</span> Quick Sale Entry
                     </a>
-                    <a href="{{ route('sales.index') }}" class="btn" aria-label="View all sales">
+                    <a href="{{ route('sales.index') }}" class="button" aria-label="View all sales">
                         <span aria-hidden="true">📋</span> All Sales
                     </a>
-                    <a href="{{ route('storage-units.index') }}" class="btn" aria-label="Manage storage units">
+                    <a href="{{ route('storage-units.index') }}" class="button" aria-label="Manage storage units">
                         <span aria-hidden="true">🏠</span> Storage Units
                     </a>
                     

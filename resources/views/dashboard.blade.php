@@ -58,7 +58,7 @@
                                     {{ $unit->roi }}%
                                 </td>
                                 <td>
-                                    <a href="{{ route('storage-units.show', $unit) }}" class="btn" style="padding: 5px 10px; font-size: 12px;">View</a>
+                                    <a href="{{ route('storage-units.show', $unit) }}" class="button button--small">View</a>
                                 </td>
                             </tr>
                         @endforeach

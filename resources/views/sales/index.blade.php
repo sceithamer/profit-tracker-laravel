@@ -7,7 +7,7 @@
 <div class="header-actions">
     <h1>📋 All Sales</h1>
     <div style="margin-left: auto;">
-        <a href="{{ route('sales.create') }}" class="btn btn-success">+ Add Sale</a>
+        <a href="{{ route('sales.create') }}" class="button button--success">+ Add Sale</a>
     </div>
 </div>
 
@@ -37,6 +37,6 @@
     'perPage' => $perPage,
     'title' => 'All Sales',
     'emptyMessage' => 'Record your first sale to start tracking profits!',
-    'emptyAction' => '<a href="' . route('sales.create') . '" class="btn btn-success">+ Record First Sale</a>'
+    'emptyAction' => '<a href="' . route('sales.create') . '" class="button button--success">+ Record First Sale</a>'
 ])
 @endsection

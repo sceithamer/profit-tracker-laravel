@@ -25,12 +25,18 @@
   --color-success-border: #bbf7d0;
   --color-success-text: #166534;
   --color-warning: #f59e0b;
+  --color-warning-hover: #d97706;
   --color-warning-bg: #fef3c7;
   --color-error: #ef4444;
   --color-error-hover: #dc2626;
   --color-error-bg: #fef2f2;
   --color-error-border: #fecaca;
   --color-error-text: #991b1b;
+  
+  /* Additional Button Hover Colors for Gray Variants */
+  --color-gray-400-hover: #6b7280;
+  --color-gray-500-hover: #4b5563;
+  --color-gray-600-hover: #374151;
 
   /* Text Colors */
   --color-text-primary: #111827;
