@@ -18,6 +18,27 @@
   cursor: pointer;
   transition: all var(--transition-fast);
   background: var(--color-primary);
+}
+
+/* Icon styling inside buttons */
+.button .icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.button--small .icon {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  max-width: 18px;
+  max-height: 18px;
+}
+
+.button--large .icon {
+  width: 24px;
+  height: 24px;
   color: var(--color-text-inverse);
   min-height: var(--button-height-md);
   box-sizing: border-box;
