@@ -1,0 +1,147 @@
+/* ==========================================================================
+   Module - Tables
+   ========================================================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td {
+  padding: var(--space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: middle;
+}
+
+th {
+  background: var(--color-bg-muted);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Sortable table headers */
+th a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: color var(--transition-fast);
+}
+
+th a:hover {
+  color: var(--color-primary);
+}
+
+/* Table container for scrolling */
+.table-container {
+  max-height: 600px;
+  overflow-y: auto;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+}
+
+/* Table row states */
+tr:hover {
+  background: var(--color-bg-muted);
+}
+
+.unassigned {
+  background: var(--color-warning-bg);
+}
+
+.unassigned:hover {
+  background: var(--color-warning-bg);
+  opacity: 0.8;
+}
+
+/* Table footer */
+tfoot tr,
+.table-totals {
+  background: var(--color-bg-muted);
+  font-weight: var(--font-weight-semibold);
+}
+
+tfoot td {
+  border-top: 2px solid var(--color-border-medium);
+  border-bottom: none;
+}
+
+/* Accessibility table styles */
+.table-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.table-link:hover,
+.table-link:focus {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+.table-warning {
+  color: var(--color-warning);
+  font-style: italic;
+}
+
+.currency {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Card header styles for tables */
+.card-header {
+  margin-bottom: var(--space-xl);
+}
+
+.card-title {
+  margin-bottom: var(--space-lg);
+  color: var(--color-text-primary);
+}
+
+.card-title .count {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-normal);
+}
+
+/* Empty state styles */
+.empty-state {
+  text-align: center;
+  padding: var(--space-6xl);
+  color: var(--color-text-secondary);
+}
+
+.empty-state h4 {
+  margin-bottom: var(--space-md);
+  color: var(--color-text-primary);
+}
+
+/* Pagination bottom spacing */
+.pagination-bottom {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Responsive tables */
+@media (max-width: 600px) {
+  table {
+    font-size: var(--font-size-xs);
+  }
+  
+  th,
+  td {
+    padding: var(--space-sm);
+  }
+  
+  .table-container {
+    max-height: 400px;
+  }
+}

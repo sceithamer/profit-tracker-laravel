@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Layout - Containers & Grid System
+   ========================================================================== */
+
+.container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: var(--space-xl);
+}
+
+.container--sm {
+  max-width: var(--container-sm);
+}
+
+.container--md {
+  max-width: var(--container-md);
+}
+
+.container--lg {
+  max-width: var(--container-lg);
+}
+
+.container--xl {
+  max-width: var(--container-xl);
+}
+
+.container--2xl {
+  max-width: var(--container-2xl);
+}
+
+/* Header Actions Layout */
+.header-actions {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  margin-bottom: var(--space-xl);
+}
+
+.header-actions h1 {
+  margin-bottom: 0;
+}
+
+.header-actions > div:last-child {
+  margin-left: auto;
+}
+
+/* Stats Grid Layout */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-xl);
+  margin-bottom: var(--space-3xl);
+}
+
+/* Unit Info Grid */
+.unit-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-xl);
+}
+
+/* Form Layout Helpers */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.form-inline {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-end;
+  margin-bottom: var(--space-xl);
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .header-actions h1 {
+    margin-bottom: var(--space-md);
+  }
+  
+  .header-actions > div:last-child {
+    margin-left: 0;
+  }
+  
+  .stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row,
+  .form-row-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

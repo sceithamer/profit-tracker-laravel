@@ -1,0 +1,39 @@
+/* ==========================================================================
+   Module - Statistics Components
+   ========================================================================== */
+
+/* Status badges */
+.status {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.status.active {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.status.sold_out {
+  background: var(--color-warning-bg);
+  color: var(--color-text-primary);
+}
+
+.status.archived {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+/* Positive/Negative indicators */
+.positive {
+  color: var(--color-text-positive);
+  font-weight: var(--font-weight-semibold);
+}
+
+.negative {
+  color: var(--color-text-negative);
+  font-weight: var(--font-weight-semibold);
+}
