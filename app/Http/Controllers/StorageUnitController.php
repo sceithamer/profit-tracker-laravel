@@ -79,7 +79,8 @@ class StorageUnitController extends Controller
         $sales = $query->paginate($perPage);
         $sales->appends($request->query());
         
-        $storageUnit->load(['expenses']);
+        // Load all relationships needed for calculations
+        $storageUnit->load(['sales', 'expenses']);
         
         return view('storage-units.show', compact('storageUnit', 'sales', 'sortBy', 'sortDir', 'perPage'));
     }

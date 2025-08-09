@@ -46,6 +46,12 @@
   font-size: var(--font-size-sm);
 }
 
+.stat-comparison {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  margin-top: var(--space-xs);
+}
+
 /* Info Cards */
 .info-item {
   margin-bottom: var(--space-lg);

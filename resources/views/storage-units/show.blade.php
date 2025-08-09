@@ -14,18 +14,18 @@
 
 <div class="stats">
     <div class="stat-card">
-        <div class="stat-value">${{ number_format($storageUnit->cost, 2) }}</div>
-        <div class="stat-label">Purchase Cost</div>
+        <div class="stat-value positive">${{ number_format($storageUnit->gross_revenue, 2) }}</div>
+        <div class="stat-label">Gross Revenue</div>
     </div>
     <div class="stat-card">
-        <div class="stat-value">${{ number_format($storageUnit->total_sales, 2) }}</div>
-        <div class="stat-label">Total Sales</div>
+        <div class="stat-value negative">${{ number_format($storageUnit->total_expenses, 2) }}</div>
+        <div class="stat-label">Total Expenses</div>
     </div>
     <div class="stat-card">
-        <div class="stat-value {{ $storageUnit->net_profit >= 0 ? 'positive' : 'negative' }}">
-            ${{ number_format($storageUnit->net_profit, 2) }}
+        <div class="stat-value {{ $storageUnit->net_revenue >= 0 ? 'positive' : 'negative' }}">
+            ${{ number_format($storageUnit->net_revenue, 2) }}
         </div>
-        <div class="stat-label">Net Profit</div>
+        <div class="stat-label">Net Revenue</div>
     </div>
     <div class="stat-card">
         <div class="stat-value {{ $storageUnit->roi >= 0 ? 'positive' : 'negative' }}">
@@ -41,6 +41,10 @@
                 <div class="info-item">
                     <div class="info-label">Purchase Date</div>
                     <div class="info-value">{{ $storageUnit->purchase_date->format('M j, Y') }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Purchase Cost</div>
+                    <div class="info-value">${{ number_format($storageUnit->cost, 2) }}</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">Location</div>

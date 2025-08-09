@@ -30,6 +30,32 @@ class StorageUnit extends Model
         return $this->hasMany(Expense::class);
     }
 
+    public function getGrossRevenueAttribute()
+    {
+        return $this->sales->sum('sale_price');
+    }
+
+    public function getTotalExpensesAttribute()
+    {
+        return $this->cost + 
+               $this->sales->sum('fees') + 
+               $this->sales->sum('shipping_cost') + 
+               $this->expenses->sum('amount');
+    }
+
+    public function getNetRevenueAttribute()
+    {
+        return $this->gross_revenue - $this->total_expenses;
+    }
+
+    public function getRoiAttribute()
+    {
+        return $this->total_expenses > 0 
+            ? round(($this->net_revenue / $this->total_expenses) * 100, 2) 
+            : 0;
+    }
+
+    // Legacy methods for backward compatibility
     public function getTotalSalesAttribute()
     {
         return $this->sales->sum(function ($sale) {
@@ -37,20 +63,8 @@ class StorageUnit extends Model
         });
     }
 
-    public function getTotalExpensesAttribute()
-    {
-        return $this->cost + $this->expenses->sum('amount');
-    }
-
     public function getNetProfitAttribute()
     {
-        return $this->total_sales - $this->total_expenses;
-    }
-
-    public function getRoiAttribute()
-    {
-        return $this->total_expenses > 0 
-            ? round(($this->net_profit / $this->total_expenses) * 100, 2) 
-            : 0;
+        return $this->net_revenue;
     }
 }

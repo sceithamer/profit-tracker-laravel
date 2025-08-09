@@ -8,6 +8,7 @@ use App\Models\StorageUnit;
 use App\Models\Platform;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Expense;
 
 class SaleController extends Controller
 {
@@ -59,7 +60,20 @@ class SaleController extends Controller
         $sales = $query->paginate($perPage);
         $sales->appends($request->query());
         
-        return view('sales.index', compact('sales', 'sortBy', 'sortDir', 'perPage'));
+        // Calculate all-time statistics for the stats cards
+        $totalSales = Sale::count();
+        $grossRevenue = Sale::sum('sale_price');
+        
+        // Calculate comprehensive total expenses
+        $totalExpenses = Sale::sum('fees') + Sale::sum('shipping_cost') + 
+                        StorageUnit::sum('cost') + Expense::sum('amount');
+        
+        $netRevenue = $grossRevenue - $totalExpenses;
+        
+        return view('sales.index', compact(
+            'sales', 'sortBy', 'sortDir', 'perPage',
+            'totalSales', 'grossRevenue', 'totalExpenses', 'netRevenue'
+        ));
     }
 
     public function create()
