@@ -71,6 +71,25 @@ tfoot td {
   border-bottom: none;
 }
 
+/* Report table styling */
+.report-table {
+  border-right: 1px solid var(--color-border-light);
+}
+
+/* Report section spacing */
+.report-section {
+  margin-bottom: var(--space-3xl); /* 32px between sections */
+}
+
+.report-section h2 {
+  margin-top: var(--space-2xl);    /* 24px above section headings */
+  margin-bottom: var(--space-lg);   /* 16px below section headings */
+}
+
+.table-responsive {
+  margin-bottom: var(--space-xl);   /* 20px after each table */
+}
+
 /* Responsive tables */
 @media (max-width: 600px) {
   table {
@@ -84,5 +103,15 @@ tfoot td {
   
   .table-container {
     max-height: 400px;
+  }
+  
+  /* Maintain report spacing on mobile */
+  .report-section {
+    margin-bottom: var(--space-2xl); /* Reduced spacing on mobile */
+  }
+  
+  .report-section h2 {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-md);
   }
 }

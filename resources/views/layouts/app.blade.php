@@ -43,6 +43,9 @@
                     <a href="{{ route('storage-units.index') }}" class="button" aria-label="Manage storage units">
                         <span aria-hidden="true">🏠</span> Storage Units
                     </a>
+                    <a href="{{ route('reports.index') }}" class="button" aria-label="View reports and analytics">
+                        <span aria-hidden="true">📊</span> Reports
+                    </a>
                     
                     <div class="dropdown">
                         <x-button class="dropdown-toggle" 
