@@ -62,8 +62,10 @@
   transition: background-color var(--transition-fast);
 }
 
-.dropdown-item:hover {
+.dropdown-menu .dropdown-item:hover {
   background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+  text-decoration: none;
 }
 
 .dropdown-item:last-child {
