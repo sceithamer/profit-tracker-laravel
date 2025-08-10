@@ -60,6 +60,31 @@ tr:hover {
   opacity: 0.8;
 }
 
+/* Table links */
+.table-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.table-link:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+.table-link:focus {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+
+/* Table warning text */
+.table-warning {
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
 /* Table footer */
 tfoot tr {
   background: var(--color-bg-muted);

@@ -70,11 +70,27 @@ class CategoryController extends Controller
             $sortDir = 'desc';
         }
         
-        // Get paginated sales for this category
-        $sales = $category->sales()
-                         ->with(['storageUnit', 'user', 'platform', 'category'])
-                         ->orderBy($sortBy, $sortDir)
-                         ->paginate($perPage);
+        $query = $category->sales()->with(['storageUnit', 'user', 'platform', 'category']);
+        
+        // Handle sorting by related models
+        if ($sortBy === 'platform_id') {
+            $query->join('platforms', 'sales.platform_id', '=', 'platforms.id')
+                  ->orderBy('platforms.name', $sortDir)
+                  ->select('sales.*');
+        } elseif ($sortBy === 'user_id') {
+            $query->join('users', 'sales.user_id', '=', 'users.id')
+                  ->orderBy('users.name', $sortDir)
+                  ->select('sales.*');
+        } elseif ($sortBy === 'storage_unit_id') {
+            $query->leftJoin('storage_units', 'sales.storage_unit_id', '=', 'storage_units.id')
+                  ->orderBy('storage_units.name', $sortDir)
+                  ->select('sales.*');
+        } else {
+            $query->orderBy($sortBy, $sortDir);
+        }
+        
+        $sales = $query->paginate($perPage);
+        $sales->appends($request->query());
                          
         return view('categories.show', compact('category', 'sales', 'sortBy', 'sortDir', 'perPage'));
     }

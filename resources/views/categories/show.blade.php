@@ -11,22 +11,31 @@
     </div>
 </div>
 
+@php
+    $totalSales = $category->sales()->count();
+    $grossRevenue = $category->sales()->sum('sale_price');
+    $totalExpenses = $category->sales()->sum('fees') + $category->sales()->sum('shipping_cost');
+    $netRevenue = $grossRevenue - $totalExpenses;
+@endphp
+
 <div class="stats">
     <div class="stat-card">
-        <div class="stat-value">{{ $sales->total() }}</div>
+        <div class="stat-value">{{ number_format($totalSales) }}</div>
         <div class="stat-label">Total Sales</div>
     </div>
     <div class="stat-card">
-        <div class="stat-value">${{ number_format($sales->sum('sale_price'), 2) }}</div>
+        <div class="stat-value positive">${{ number_format($grossRevenue, 2) }}</div>
         <div class="stat-label">Gross Revenue</div>
     </div>
     <div class="stat-card">
-        <div class="stat-value">${{ number_format($sales->sum(function($sale) { return $sale->sale_price - $sale->fees - $sale->shipping_cost; }), 2) }}</div>
-        <div class="stat-label">Net Revenue</div>
+        <div class="stat-value negative">${{ number_format($totalExpenses, 2) }}</div>
+        <div class="stat-label">Total Expenses</div>
     </div>
     <div class="stat-card">
-        <div class="stat-value">${{ number_format($sales->sum('fees') + $sales->sum('shipping_cost'), 2) }}</div>
-        <div class="stat-label">Total Fees & Shipping</div>
+        <div class="stat-value {{ $netRevenue < 0 ? 'negative' : ($netRevenue > 0 ? 'positive' : '') }}">
+            ${{ number_format($netRevenue, 2) }}
+        </div>
+        <div class="stat-label">Net Revenue</div>
     </div>
 </div>
 

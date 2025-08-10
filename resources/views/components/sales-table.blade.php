@@ -202,7 +202,17 @@ Usage:
                             <td>{{ $sale->platform->name }}</td>
                             @endif
                             <td>{{ $sale->user->name }}</td>
-                            <td>{{ $sale->category ? $sale->category->name : '—' }}</td>
+                            <td>
+                                @if($sale->category)
+                                    <a href="{{ route('categories.show', $sale->category) }}" 
+                                       class="table-link"
+                                       aria-label="View category {{ $sale->category->name }} sales">
+                                        {{ $sale->category->name }}
+                                    </a>
+                                @else
+                                    <span class="table-warning" aria-label="No category assigned">—</span>
+                                @endif
+                            </td>
                             <td>
                                 <div style="display: flex; gap: 8px; align-items: center;">
                                     <x-button href="{{ route('sales.edit', $sale) }}" variant="primary" size="small" icon-only aria-label="Edit sale">
