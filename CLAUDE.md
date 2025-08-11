@@ -31,14 +31,14 @@ This document establishes the design principles, architecture decisions, and dev
 
 ## 🏛️ Architecture Standards
 
-### **CSS Architecture - SMACSS**
+### **CSS Architecture - Enhanced SMACSS**
 
 **File Structure:**
 ```
 resources/css/
 ├── app.css                 # Main entry point with imports
 ├── base/
-│   ├── _variables.css     # Design tokens (100+ CSS custom properties)
+│   ├── _variables.css     # Design tokens (125+ CSS custom properties)
 │   ├── _reset.css         # CSS reset/normalize
 │   └── _typography.css    # Font styles
 ├── layout/
@@ -50,7 +50,10 @@ resources/css/
 │   ├── _tables.css        # Table styles
 │   ├── _forms.css         # Form components
 │   ├── _pagination.css    # Pagination styles
-│   └── _alerts.css        # Alert messages
+│   ├── _alerts.css        # Alert messages
+│   ├── _auth.css          # Authentication pages & components
+│   ├── _dropdowns.css     # Dropdown menus & navigation
+│   └── _stats.css         # Dashboard statistics cards
 ├── state/
 │   └── _states.css        # :hover, :focus, .active states
 ├── theme/
@@ -59,10 +62,15 @@ resources/css/
     └── _helpers.css       # Utility classes
 ```
 
-**Design Token System:**
-- All colors, spacing, fonts use CSS custom properties
-- Format: `var(--color-primary)`, `var(--space-xl)`, `var(--font-size-lg)`
-- Dark mode ready with CSS custom property system
+**Enhanced Design Token System:**
+- **Colors**: 50+ semantic color tokens with accessibility focus
+- **Spacing**: 12-point spacing scale (`--space-xs` to `--space-6xl`)
+- **Typography**: Fluid type scale with responsive font sizes
+- **Responsive**: Breakpoint variables (`--breakpoint-mobile`, `--breakpoint-tablet`)
+- **Containers**: Responsive max-widths (`--container-mobile`, `--container-desktop`)
+- **Shadows**: 5-level shadow system for depth hierarchy
+- **Format**: `var(--color-primary)`, `var(--space-xl)`, `var(--font-size-lg)`
+- **Authentication**: Specialized color tokens for auth pages contrast
 
 ### **HTML5 Semantic Structure**
 
@@ -132,6 +140,76 @@ resources/css/
 - Include comprehensive documentation in component comments
 - Use design tokens for all styling
 - No inline styles allowed
+
+## 🔐 Authentication & Permissions System
+
+### **Laravel Breeze Integration**
+- **Framework**: Laravel Breeze with custom layout preservation
+- **Session Security**: 7-day encrypted sessions (`SESSION_LIFETIME=10080`)
+- **Authentication Views**: Custom styling integrated with SMACSS architecture
+- **Layout Integration**: `storage-app.blade.php` layout maintains design consistency
+
+### **Granular Permissions Model**
+**15 Specific Permissions across all resources:**
+```php
+// Sales Permissions
+'create_sales', 'edit_sales', 'delete_sales',
+
+// Storage Units Permissions  
+'create_storage_units', 'edit_storage_units', 'delete_storage_units',
+
+// Categories Permissions
+'create_categories', 'edit_categories', 'delete_categories',
+
+// Platforms Permissions
+'create_platforms', 'edit_platforms', 'delete_platforms',
+
+// User Management Permissions
+'create_users', 'edit_users', 'delete_users'
+```
+
+### **Permission Architecture**
+**Database Structure:**
+- **JSON Column**: `permissions` column optimized for SQLite performance
+- **Admin Override**: `is_admin` boolean bypasses all permission checks
+- **User Model Methods**: `hasPermission()`, `syncPermissions()`, `getAvailablePermissions()`
+
+**Permission Storage Example:**
+```json
+{
+  "permissions": ["create_sales", "edit_sales", "create_storage_units"]
+}
+```
+
+### **Route Protection System**
+**Permission Middleware**: `CheckPermission` middleware protects all routes
+```php
+// Route Examples
+Route::get('/sales/create')->middleware('permission:create_sales');
+Route::put('/storage-units/{unit}')->middleware('permission:edit_storage_units');
+Route::delete('/users/{user}')->middleware('permission:delete_users');
+```
+
+**Middleware Registration:**
+```php
+// bootstrap/app.php
+$middleware->alias([
+    'permission' => \App\Http\Middleware\CheckPermission::class,
+]);
+```
+
+### **User Management System**
+- **Admin-Controlled Creation**: No public registration - admins create accounts
+- **Permission Assignment**: Granular permission checkbox interface
+- **User Roles**: Flexible permission combinations instead of fixed roles
+- **Account Verification**: Admin-created accounts auto-verified
+
+### **Authentication Workflow**
+1. **Login**: Custom form with responsive design and accessibility
+2. **Session**: Long-lived encrypted sessions (7 days)
+3. **Permission Check**: Middleware validates permissions per route
+4. **Admin Functions**: User creation, permission management
+5. **Security**: CSRF protection, input validation, secure redirects
 
 ## 🎨 Design System
 
@@ -216,6 +294,8 @@ resources/css/
 - Implement proper request validation
 - Follow RESTful routing conventions
 - Use resource controllers
+- Apply permission middleware to all protected routes
+- Use `CheckPermission` middleware for granular access control
 
 **2. Blade Template Standards**
 - Extract repeated HTML into components
@@ -228,6 +308,40 @@ resources/css/
 - Implement proper indexing for performance
 - Use migrations for all schema changes
 - Seed realistic test data
+
+**4. Permission Development Patterns**
+- **Route Protection**: Apply middleware to all CRUD operations
+```php
+Route::get('/resource/create')->middleware('permission:create_resource');
+Route::post('/resource')->middleware('permission:create_resource');
+Route::put('/resource/{id}')->middleware('permission:edit_resource');
+Route::delete('/resource/{id}')->middleware('permission:delete_resource');
+```
+
+- **Controller Validation**: Check permissions in controller methods when needed
+```php
+public function store(Request $request)
+{
+    // Permission already validated by middleware
+    // Proceed with validation and creation
+}
+```
+
+- **User Model Methods**: Use built-in permission checking
+```php
+if ($user->hasPermission('create_sales')) {
+    // User can create sales
+}
+
+// Sync permissions for user
+$user->syncPermissions(['create_sales', 'edit_sales']);
+```
+
+- **Migration Patterns**: Always include permission seeding
+```php
+// In migration or seeder
+$user->update(['permissions' => ['create_sales', 'edit_sales']]);
+```
 
 ### **Testing & Validation Commands**
 
@@ -258,25 +372,64 @@ php artisan migrate   # Ensure migrations work
 - **Quick Sale Entry**: <30 second workflow for new sales
 - **Unassigned Sales**: Track sales not tied to specific units
 
+### **User Management & Security**
+- **Admin-Controlled Accounts**: Administrators create user accounts
+- **Granular Permissions**: 15 specific permissions across all resources
+- **Role-Based Access**: Flexible permission combinations instead of fixed roles
+- **Secure Authentication**: Laravel Breeze with 7-day encrypted sessions
+- **Permission Enforcement**: Route-level and controller-level protection
+- **User Activity Tracking**: Sales attribution and user statistics
+
 ### **Performance Requirements**
 - **Quick Sale Workflow**: Must complete sale entry in under 30 seconds
 - **Responsive Design**: Mobile-friendly interface
 - **Efficient Pagination**: Handle large datasets with proper pagination
 - **Fast Navigation**: Intuitive menu structure with keyboard shortcuts
 
-## 🔐 Security Standards
+## 🔐 Enhanced Security Standards
 
-**Authentication & Authorization**
-- Secure user authentication required
-- Session management following Laravel defaults
-- CSRF protection on all forms
-- Input validation and sanitization
+### **Authentication & Authorization**
+**Laravel Breeze Implementation:**
+- **Authentication Framework**: Laravel Breeze with custom styling
+- **Session Security**: Encrypted sessions with 7-day lifetime
+- **Password Security**: Bcrypt hashing with automatic verification
+- **Admin-Only Registration**: No public account creation
+- **Email Verification**: Auto-verified for admin-created accounts
 
-**Data Protection**
-- No secrets or keys in repository
-- Environment variables for sensitive data
-- Proper database connection security
-- User data properly escaped in templates
+**Granular Permission System:**
+- **Permission Middleware**: Route-level permission enforcement
+- **JSON Storage**: Optimized permission storage in SQLite
+- **Admin Override**: Boolean flag bypasses permission checks
+- **Permission Validation**: Real-time permission checking
+- **Secure Redirects**: Permission-denied users redirected safely
+
+**Session Management:**
+```php
+// .env Configuration
+SESSION_LIFETIME=10080        // 7 days in minutes
+SESSION_ENCRYPT=true          // Encrypt all session data
+SESSION_SECURE_COOKIE=true    // HTTPS-only cookies (production)
+SESSION_SAME_SITE=lax        // CSRF protection
+```
+
+### **Data Protection & Validation**
+**Input Security:**
+- **CSRF Protection**: All forms include `@csrf` tokens
+- **Input Validation**: Comprehensive validation rules for all user input
+- **SQL Injection Prevention**: Eloquent ORM prevents SQL injection
+- **XSS Protection**: Automatic escaping with `{{ }}` syntax
+
+**Database Security:**
+- **SQLite Optimization**: JSON column indexing for permissions
+- **Foreign Key Constraints**: Data integrity enforcement
+- **Migration Security**: Version-controlled schema changes
+- **Backup Strategy**: Database file backup for SQLite
+
+**Environment Security:**
+- **Secret Management**: All sensitive data in `.env` files
+- **Key Rotation**: Laravel application key generation
+- **No Hardcoded Secrets**: Repository free of credentials
+- **Production Security**: Environment-specific configurations
 
 ## 🚀 Deployment Guidelines
 
@@ -335,6 +488,59 @@ Accessibility Notes:
    ========================================================================== */
 ```
 
+## 🧪 Test Account Documentation
+
+### **Authentication Test Accounts**
+The application includes pre-configured test accounts with varying permission levels for development and testing:
+
+#### **Administrator Account**
+- **Email**: `admin@example.com`
+- **Password**: `admin123`
+- **Permissions**: Full system access (bypasses all permission checks)
+- **Capabilities**: User management, all CRUD operations, system configuration
+
+#### **Sales Manager**
+- **Email**: `manager@example.com`
+- **Password**: `manager123`
+- **Permissions**: 
+  - Sales: Create, Edit, Delete
+  - Storage Units: Create, Edit
+  - Categories: Create, Edit
+  - Platforms: Create, Edit
+- **Use Case**: Department manager with comprehensive operational access
+
+#### **Data Entry Clerk**
+- **Email**: `clerk@example.com`
+- **Password**: `clerk123`
+- **Permissions**: 
+  - Sales: Create, Edit only
+- **Use Case**: Limited access user for data entry tasks
+
+#### **Category Manager**
+- **Email**: `categories@example.com`
+- **Password**: `category123`
+- **Permissions**: 
+  - Categories: Create, Edit, Delete
+  - Platforms: Create, Edit, Delete
+- **Use Case**: Specialized role for content management
+
+#### **Read-Only Viewer**
+- **Email**: `viewer@example.com`
+- **Password**: `viewer123`
+- **Permissions**: None (view-only access)
+- **Use Case**: Reports and data viewing without modification rights
+
+#### **Basic Test Account**
+- **Email**: `test@example.com`
+- **Password**: `password`
+- **Permissions**: None (legacy test account)
+- **Note**: Uses Laravel's default UserFactory password
+
+### **Development Workflow**
+**For comprehensive testing**: Use `admin@example.com` with password `admin123`
+**For permission testing**: Use role-specific accounts to verify access controls
+**For UI testing**: Test with different permission levels to ensure proper interface restrictions
+
 ## 🔄 Future Enhancement Guidelines
 
 ### **Planned Improvements**
@@ -355,4 +561,6 @@ Accessibility Notes:
 
 **Last Updated**: August 2025  
 **Maintained By**: Development Team  
-**WCAG Compliance**: 2.1 AA (90%+ achieved)
+**Authentication**: Laravel Breeze with Granular Permissions (15 permissions)  
+**WCAG Compliance**: 2.1 AA (95%+ achieved)  
+**Security Level**: Production-ready with encrypted sessions
