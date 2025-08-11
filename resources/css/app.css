@@ -1,31 +1,33 @@
 /* ==========================================================================
-   Main CSS Entry Point - SMACSS Architecture
+   Storage Units Profit Tracker - Main Stylesheet
+   SMACSS Architecture (Scalable and Modular Architecture for CSS)
    ========================================================================== */
 
-/* Base Styles */
-@import './base/_variables.css';
+/* Base - Reset, variables, typography */
 @import './base/_reset.css';
+@import './base/_variables.css';
 @import './base/_typography.css';
 
-/* Layout Styles */
+/* Layout - Grid, containers, navigation */
 @import './layout/_containers.css';
 @import './layout/_navbar.css';
 
-/* Module Styles */
+/* Modules - Reusable components */
 @import './modules/_buttons.css';
 @import './modules/_cards.css';
-@import './modules/_forms.css';
 @import './modules/_tables.css';
-@import './modules/_dropdowns.css';
-@import './modules/_alerts.css';
+@import './modules/_forms.css';
 @import './modules/_pagination.css';
+@import './modules/_alerts.css';
 @import './modules/_stats.css';
+@import './modules/_dropdowns.css';
+@import './modules/_auth.css';
 
-/* State Styles */
+/* State - Hover, focus, active states */
 @import './state/_states.css';
 
-/* Theme Styles */
+/* Theme - Color schemes, dark mode */
 @import './theme/_themes.css';
 
-/* Utility Styles */
+/* Utilities - Helper classes */
 @import './utilities/_helpers.css';

@@ -37,9 +37,20 @@ return [
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
-            'busy_timeout' => null,
-            'journal_mode' => null,
-            'synchronous' => null,
+            'busy_timeout' => 30000,
+            'journal_mode' => 'WAL',
+            'synchronous' => 'NORMAL',
+            'options' => [
+                PDO::ATTR_PERSISTENT => true,
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::ATTR_TIMEOUT => 60,
+            ],
+            'pragma' => [
+                'cache_size' => -64000,        // 64MB cache
+                'temp_store' => 'MEMORY',      // Temp tables in RAM
+                'mmap_size' => 268435456,      // 256MB memory mapping
+                'optimize' => true,            // Run PRAGMA optimize
+            ],
         ],
 
         'mysql' => [

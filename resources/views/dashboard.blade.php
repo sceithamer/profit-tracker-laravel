@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', 'Dashboard - Storage Units Profit Tracker')
 
