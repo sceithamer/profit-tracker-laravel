@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', $user->name . ' - User Details')
 
