@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', $platform->name . ' - Platform Sales')
 
@@ -7,7 +7,9 @@
 <div class="header-actions">
     <h1>📱 {{ $platform->name }}</h1>
     <div style="margin-left: auto;">
-        <x-button href="{{ route('platforms.edit', $platform) }}">Edit Platform</x-button>
+        @if(auth()->user()->hasPermission('edit_platforms'))
+            <x-button href="{{ route('platforms.edit', $platform) }}">Edit Platform</x-button>
+        @endif
     </div>
 </div>
 
@@ -38,6 +40,6 @@
     'title' => "All Sales on {$platform->name}",
     'showPlatform' => false,
     'emptyMessage' => "No items have been sold on {$platform->name} yet.",
-    'emptyAction' => '<x-button href="' . route('sales.create') . '" variant="success">+ Record First Sale</x-button>'
+    'emptyAction' => auth()->user()->hasPermission('create_sales') ? '<a href="' . route('sales.create') . '" class="button button--success">+ Record First Sale</a>' : ''
 ])
 @endsection

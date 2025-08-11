@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', $category->name . ' - Category Sales')
 
@@ -7,7 +7,9 @@
 <div class="header-actions">
     <h1>📂 {{ $category->name }}</h1>
     <div style="margin-left: auto;">
-        <x-button href="{{ route('categories.edit', $category) }}">Edit Category</x-button>
+        @if(auth()->user()->hasPermission('edit_categories'))
+            <x-button href="{{ route('categories.edit', $category) }}">Edit Category</x-button>
+        @endif
     </div>
 </div>
 

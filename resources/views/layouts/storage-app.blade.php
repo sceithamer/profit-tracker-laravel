@@ -35,9 +35,11 @@
                 </a>
                 
                 <div class="navbar-actions">
-                    <a href="{{ route('sales.create') }}" class="button button--success" aria-label="Quick Sale Entry - Add a new sale">
-                        <span aria-hidden="true">⚡</span> Quick Sale Entry
-                    </a>
+                    @if(auth()->user()->hasPermission('create_sales'))
+                        <a href="{{ route('sales.create') }}" class="button button--success" aria-label="Quick Sale Entry - Add a new sale">
+                            <span aria-hidden="true">⚡</span> Quick Sale Entry
+                        </a>
+                    @endif
                     <a href="{{ route('sales.index') }}" class="button" aria-label="View all sales">
                         <span aria-hidden="true">📋</span> All Sales
                     </a>
@@ -64,17 +66,19 @@
                              id="settingsDropdown" 
                              role="menu" 
                              aria-labelledby="settings-menu-button">
-                            <a href="{{ route('storage-units.create') }}" class="dropdown-item" role="menuitem">
-                                <span aria-hidden="true">➕</span> New Storage Unit
-                            </a>
+                            @if(auth()->user()->hasPermission('create_storage_units'))
+                                <a href="{{ route('storage-units.create') }}" class="dropdown-item" role="menuitem">
+                                    <span aria-hidden="true">➕</span> New Storage Unit
+                                </a>
+                            @endif
                             <a href="{{ route('platforms.index') }}" class="dropdown-item" role="menuitem">
-                                <span aria-hidden="true">📱</span> Manage Platforms
+                                <span aria-hidden="true">📱</span> Platforms
                             </a>
                             <a href="{{ route('categories.index') }}" class="dropdown-item" role="menuitem">
-                                <span aria-hidden="true">📂</span> Manage Categories
+                                <span aria-hidden="true">📂</span> Categories
                             </a>
                             <a href="{{ route('users.index') }}" class="dropdown-item" role="menuitem">
-                                <span aria-hidden="true">👥</span> User Management
+                                <span aria-hidden="true">👥</span> Users
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('profile.edit') }}" class="dropdown-item" role="menuitem">

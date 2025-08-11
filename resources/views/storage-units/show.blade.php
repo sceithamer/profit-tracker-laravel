@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', $storageUnit->name . ' - Profit Tracker')
 
@@ -7,8 +7,12 @@
 <div class="header-actions">
     <h1>🏠 {{ $storageUnit->name }}</h1>
     <div style="margin-left: auto;">
-        <a href="{{ route('storage-units.edit', $storageUnit) }}" class="button">Edit Unit</a>
-        <a href="{{ route('sales.create') }}?storage_unit={{ $storageUnit->id }}" class="button button--success">+ Add Sale</a>
+        @if(auth()->user()->hasPermission('edit_storage_units'))
+            <a href="{{ route('storage-units.edit', $storageUnit) }}" class="button">Edit Unit</a>
+        @endif
+        @if(auth()->user()->hasPermission('create_sales'))
+            <a href="{{ route('sales.create') }}?storage_unit={{ $storageUnit->id }}" class="button button--success">+ Add Sale</a>
+        @endif
     </div>
 </div>
 
@@ -80,7 +84,7 @@
             'showStorageUnit' => false,
             'headingLevel' => 'h2',
             'emptyMessage' => 'Start selling items from this storage unit!',
-            'emptyAction' => '<a href="' . route('sales.create', ['storage_unit' => $storageUnit->id]) . '" class="button button--success">+ Record First Sale</a>'
+            'emptyAction' => auth()->user()->hasPermission('create_sales') ? '<a href="' . route('sales.create', ['storage_unit' => $storageUnit->id]) . '" class="button button--success">+ Record First Sale</a>' : ''
         ])
 
         @if($storageUnit->expenses->count() > 0)

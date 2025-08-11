@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', 'Categories - Profit Tracker')
 
@@ -6,6 +6,7 @@
 
 <h1>📂 Sales Categories</h1>
 
+@if(auth()->user()->hasPermission('create_categories'))
 <div class="card">
     <h2>Quick Add Category</h2>
     <form method="POST" action="{{ route('categories.store') }}">
@@ -22,6 +23,7 @@
         </div>
     </form>
 </div>
+@endif
 
 <div class="card">
     <h2>Current Categories</h2>
@@ -41,8 +43,10 @@
                         <td>{{ $category->sales_count }} sales</td>
                         <td>
                             <x-button href="{{ route('categories.show', $category) }}" size="small">View</x-button>
-                            <x-button href="{{ route('categories.edit', $category) }}" size="small">Edit</x-button>
-                            @if($category->sales_count == 0)
+                            @if(auth()->user()->hasPermission('edit_categories'))
+                                <x-button href="{{ route('categories.edit', $category) }}" size="small">Edit</x-button>
+                            @endif
+                            @if($category->sales_count == 0 && auth()->user()->hasPermission('delete_categories'))
                                 <form method="POST" action="{{ route('categories.destroy', $category) }}" style="display: inline;" onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')

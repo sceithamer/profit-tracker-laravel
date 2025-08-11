@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', 'Quick Sale Entry - Profit Tracker')
 
@@ -49,7 +49,7 @@
                         <select id="user_id" name="user_id" required>
                             <option value="">Choose who sold it...</option>
                             @foreach($users as $user)
-                                <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
+                                <option value="{{ $user->id }}" {{ (old('user_id') ?? auth()->id()) == $user->id ? 'selected' : '' }}>
                                     {{ $user->name }}
                                 </option>
                             @endforeach

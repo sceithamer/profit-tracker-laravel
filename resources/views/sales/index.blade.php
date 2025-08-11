@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', 'All Sales - Profit Tracker')
 
@@ -7,7 +7,9 @@
 <div class="header-actions">
     <h1>📋 All Sales</h1>
     <div style="margin-left: auto;">
-        <a href="{{ route('sales.create') }}" class="button button--success">+ Add Sale</a>
+        @if(auth()->user()->hasPermission('create_sales'))
+            <a href="{{ route('sales.create') }}" class="button button--success">+ Add Sale</a>
+        @endif
     </div>
 </div>
 
@@ -37,6 +39,6 @@
     'perPage' => $perPage,
     'title' => 'All Sales',
     'emptyMessage' => 'Record your first sale to start tracking profits!',
-    'emptyAction' => '<a href="' . route('sales.create') . '" class="button button--success">+ Record First Sale</a>'
+    'emptyAction' => auth()->user()->hasPermission('create_sales') ? '<a href="' . route('sales.create') . '" class="button button--success">+ Record First Sale</a>' : ''
 ])
 @endsection

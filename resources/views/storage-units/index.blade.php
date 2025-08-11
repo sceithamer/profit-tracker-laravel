@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', 'Storage Units - Profit Tracker')
 
@@ -43,7 +43,9 @@
                         </td>
                         <td>
                             <a href="{{ route('storage-units.show', $unit) }}" class="button button--small">View</a>
-                            <a href="{{ route('storage-units.edit', $unit) }}" class="button button--small">Edit</a>
+                            @if(auth()->user()->hasPermission('edit_storage_units'))
+                                <a href="{{ route('storage-units.edit', $unit) }}" class="button button--small">Edit</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -53,7 +55,9 @@
         <div style="text-align: center; padding: 40px;">
             <h2>No Storage Units Yet</h2>
             <p>Create your first storage unit to start tracking profits!</p>
-            <a href="{{ route('storage-units.create') }}" class="button button--success">+ Create Storage Unit</a>
+            @if(auth()->user()->hasPermission('create_storage_units'))
+                <a href="{{ route('storage-units.create') }}" class="button button--success">+ Create Storage Unit</a>
+            @endif
         </div>
     @endif
 </div>

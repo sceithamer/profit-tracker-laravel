@@ -7,7 +7,9 @@
 <div class="header-actions">
     <h1>👤 {{ $user->name }}</h1>
     <div style="margin-left: auto;">
-        <a href="{{ route('users.edit', $user) }}" class="button">Edit Permissions</a>
+        @if(auth()->user()->hasPermission('edit_users'))
+            <a href="{{ route('users.edit', $user) }}" class="button">Edit Permissions</a>
+        @endif
         <a href="{{ route('users.index') }}" class="button button--secondary">Back to Users</a>
     </div>
 </div>
@@ -68,7 +70,9 @@
     @if($user->is_admin)
         <div class="permissions-notice">
             <p><strong>Administrator Access:</strong> This user has all permissions automatically.</p>
-            <a href="{{ route('users.edit', $user) }}" class="button button--small">Manage Permissions</a>
+            @if(auth()->user()->hasPermission('edit_users'))
+                <a href="{{ route('users.edit', $user) }}" class="button button--small">Manage Permissions</a>
+            @endif
         </div>
     @else
         @php
@@ -97,7 +101,9 @@
         @else
             <div class="permissions-notice">
                 <p>This user currently has no specific permissions assigned.</p>
-                <a href="{{ route('users.edit', $user) }}" class="button button--small button--success">Assign Permissions</a>
+                @if(auth()->user()->hasPermission('edit_users'))
+                    <a href="{{ route('users.edit', $user) }}" class="button button--small button--success">Assign Permissions</a>
+                @endif
             </div>
         @endif
     @endif

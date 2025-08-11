@@ -7,7 +7,9 @@
 <div class="header-actions">
     <h1>👥 User Management</h1>
     <div style="margin-left: auto;">
-        <a href="{{ route('users.create') }}" class="button button--success">+ Add User</a>
+        @if(auth()->user()->hasPermission('create_users'))
+            <a href="{{ route('users.create') }}" class="button button--success">+ Add User</a>
+        @endif
     </div>
 </div>
 
@@ -73,7 +75,9 @@
                             <td>
                                 <div style="display: flex; gap: 8px; align-items: center;">
                                     <a href="{{ route('users.show', $user) }}" class="button button--small">View</a>
-                                    <a href="{{ route('users.edit', $user) }}" class="button button--small button--secondary">Edit</a>
+                                    @if(auth()->user()->hasPermission('edit_users'))
+                                        <a href="{{ route('users.edit', $user) }}" class="button button--small button--secondary">Edit</a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -89,7 +93,9 @@
         <div class="empty-state">
             <h4>No Users Yet</h4>
             <p>No users have been created yet.</p>
-            <a href="{{ route('users.create') }}" class="button button--success">+ Create First User</a>
+            @if(auth()->user()->hasPermission('create_users'))
+                <a href="{{ route('users.create') }}" class="button button--success">+ Create First User</a>
+            @endif
         </div>
     @endif
 </div>

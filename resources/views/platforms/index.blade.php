@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.storage-app')
 
 @section('title', 'Platforms - Profit Tracker')
 
@@ -6,6 +6,7 @@
 
 <h1>📱 Sales Platforms</h1>
 
+@if(auth()->user()->hasPermission('create_platforms'))
 <div class="card">
     <h2>Quick Add Platform</h2>
     <form method="POST" action="{{ route('platforms.store') }}">
@@ -22,6 +23,7 @@
         </div>
     </form>
 </div>
+@endif
 
 <div class="card">
     <h2>Current Platforms</h2>
@@ -41,8 +43,10 @@
                         <td>{{ $platform->sales_count }} sales</td>
                         <td>
                             <x-button href="{{ route('platforms.show', $platform) }}" size="small">View</x-button>
-                            <x-button href="{{ route('platforms.edit', $platform) }}" size="small">Edit</x-button>
-                            @if($platform->sales_count == 0)
+                            @if(auth()->user()->hasPermission('edit_platforms'))
+                                <x-button href="{{ route('platforms.edit', $platform) }}" size="small">Edit</x-button>
+                            @endif
+                            @if($platform->sales_count == 0 && auth()->user()->hasPermission('delete_platforms'))
                                 <form method="POST" action="{{ route('platforms.destroy', $platform) }}" style="display: inline;" onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
